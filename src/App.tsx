@@ -1,76 +1,63 @@
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { View } from 'react-native';
+import { ExerciseScreen } from './screens/ExerciseScreen';
+import { Text } from 'react-native'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
+
+const Exercises = [
+    {
+        weight: 10,
+        repHi: 10,
+        repLow: 15,
+        notes: "Easy to go to heavy here. Use the tempo to make it burn rather than the weight itself. Connect with the chest.",
+        tempo: '3 second eccentrics + 1 count in the contraction.',
+        title: "Leg Press"
+    },
+    {
+        weight: 20,
+        repHi: 4,
+        repLow: 8,
+        notes: "Press hard. This should break you.",
+        tempo: '3 second eccentrics + 1 count in the contraction.',
+        title: "Bicep Curl"
+    }
+
+]
 
 
 export default function App() {
-
-    return (
-        <View
-            style={[
-                styles.container
-            ]}>
-            <View style={{ flex: 1, flexDirection: 'row' }} >
-                <View style={styles.box} >
-                    <Text style={styles.text}>Weight</Text>
-                    <Text style={styles.weightText}>10</Text>
-                </View>
-                <View style={styles.box} >
-                    <Text style={styles.text}>Reps</Text>
-                    <Text style={{ ...styles.weightText, fontSize: 40 }}>10/15</Text>
-                </View>
-                <View style={{ ...styles.box }} >
-                    <Text style={styles.text}>Set</Text>
-                    <Text style={styles.weightText}>2/3</Text>
-                </View>
-            </View>
-            <View style={{ flex: 2 }} >
-                <View style={styles.box} >
-                    <Text style={styles.text}>Notes</Text>
-                    <Text style={{ ...styles.weightText, fontSize: 18 }}>Easy to go too heavy on this one, use the tempo to make it burn rather than the weight itself. Connect with the chest.</Text>
-                </View>
-            </View>
-            <View style={{ flex: 2 }} >
-                <View style={styles.box} >
-                    <Text style={styles.text}>Tempo</Text>
-                    <Text style={{ ...styles.weightText, fontSize: 18 }}>3 second eccentrics + 1 count in the contraction.</Text>
-                </View>
-            </View>
-            <View style={{ flex: 1 }} >
-                <Button title='Next Set' />
-            </View>
-        </View>
+    let exerciseIndex = 0
+    const [exercise, setExercise] = useState(Exercises[exerciseIndex])
 
 
-    );
-}
-const baseText = {
-    color: 'white',
-    textAlign: 'center' as const,
-}
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        backgroundColor: 'black',
-        flex: 1,
-        paddingVertical: 35,
-        paddingTop: 40,
-        paddingHorizontal: 15
-    },
-    text: {
-        ...baseText,
-        fontSize: 20,
-        flex: 1
-    },
-    weightText: {
-        ...baseText,
-        fontSize: 50,
-        flex: 2
-    },
-    box: {
-        flex: 1,
-        borderColor: 'orange',
-        borderStyle: 'solid',
-        borderWidth: 4,
-        padding: 8,
-        flexDirection: "column"
+    const [istimerShowing, setIsTimerShowing] = useState(false)
+
+    const nextExercise = () => {
+
+        setIsTimerShowing((isShowing) => !isShowing)
+        setExercise(Exercises[exerciseIndex + 1])
+        exerciseIndex = exerciseIndex + 1
     }
-});
+
+    const children = ({ remainingTime }: { remainingTime: number }) => {
+        const minutes = Math.floor(remainingTime / 60)
+        const remainingSeconds = remainingTime % 60
+        const seconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+        return `${minutes}:${seconds}`
+    }
+    return <SafeAreaView style={{ flex: 1 }}>
+        {istimerShowing ?
+            <View style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <CountdownCircleTimer
+                    isPlaying
+                    duration={5}
+                    colors={'#FFA500'}
+                    onComplete={nextExercise}
+                >
+                    {({ remainingTime }: { remainingTime: number }) => <Text style={{ color: "white", fontSize: 50 }}>{children({ remainingTime })}</Text>}
+                </CountdownCircleTimer>
+            </View>
+            : <ExerciseScreen exercise={exercise} next={nextExercise} />}
+    </SafeAreaView>
+}
