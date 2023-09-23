@@ -1,61 +1,54 @@
-import { useState } from "react";
 import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ExcerciseType } from "../workout";
+
+
 
 export const ExerciseScreen: React.FC<{
-    exercise: {
-        weight: number;
-        repHi: number;
-        repLow: number;
-        notes: string;
-        tempo: string;
-        title: string;
-    }, next: () => void
-}> = ({ exercise, next }) => {
-
-
+    title: string,
+    set: ExcerciseType,
+    setCount: string
+    next: () => void
+}> = ({ title, set, setCount, next }) => {
+    console.log(title, set, setCount)
     return (
         <View style={{ flex: 1 }}>
-            <StatusBar
-                barStyle="light-content"
-            />
             <View
                 style={[
                     styles.container
                 ]}>
                 <View style={{ flex: 0.5, display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ color: "white", fontSize: 100 }} adjustsFontSizeToFit={true}>{exercise.title}</Text>
+                    <Text style={{ color: "white", fontSize: 100 }} adjustsFontSizeToFit={true} numberOfLines={1}>{title}</Text>
                 </View>
 
 
                 <View style={{ flex: 1, flexDirection: 'row' }} >
                     <View style={styles.box} >
                         <Text style={styles.text}>Weight</Text>
-                        <Text style={styles.weightText}>{exercise.weight}</Text>
+                        <Text style={styles.weightText}>{set.weight}</Text>
                     </View>
                     <View style={styles.box} >
                         <Text style={styles.text}>Reps</Text>
-                        <Text style={{ ...styles.weightText, fontSize: 40 }}>{exercise.repLow}/{exercise.repLow}</Text>
+                        <Text style={{ ...styles.weightText, fontSize: 40 }}>{set.repLow}-{set.repHi}</Text>
                     </View>
                     <View style={{ ...styles.box }} >
                         <Text style={styles.text}>Set</Text>
-                        <Text style={styles.weightText}>2/3</Text>
+                        <Text style={styles.weightText}>{setCount}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1 }} >
+                    <Text style={{ ...styles.text, fontSize: 34 }}>Tempo</Text>
                     <View style={styles.box} >
-                        <Text style={styles.text}>Notes</Text>
-                        <Text style={{ ...styles.weightText, fontSize: 18 }}>{exercise.notes}</Text>
+                        <Text style={{ ...styles.weightText, fontSize: 26 }}>{set.tempo}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1 }} >
-                    <View style={styles.box} >
-                        <Text style={styles.text}>Tempo</Text>
-                        <Text style={{ ...styles.weightText, fontSize: 18 }}>{exercise.tempo}</Text>
+                    <Text style={{ ...styles.text, fontSize: 34 }}>Notes</Text>
+                    <View style={{ ...styles.box, }} >
+                        <Text style={{ ...styles.weightText, fontSize: 26 }}>{set.notes}</Text>
                     </View>
                 </View>
                 <Pressable
-                    style={{ backgroundColor: "orange", flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    style={{ backgroundColor: "orange", flex: 0.5, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: '10%', borderRadius: 10 }}
                     onPress={next}
                 >
                     <Text style={{ fontSize: 28, fontWeight: '600' }}>Next Set</Text>
@@ -87,9 +80,6 @@ const styles = StyleSheet.create({
     },
     box: {
         flex: 1,
-        borderColor: 'orange',
-        borderStyle: 'solid',
-        borderWidth: 4,
         padding: 8,
         flexDirection: "column"
     }

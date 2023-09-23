@@ -1,44 +1,29 @@
-import { View } from 'react-native';
+import { Button, Pressable, StatusBar, View } from 'react-native';
 import { ExerciseScreen } from './screens/ExerciseScreen';
 import { Text } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
-
-const Exercises = [
-    {
-        weight: 10,
-        repHi: 10,
-        repLow: 15,
-        notes: "Easy to go to heavy here. Use the tempo to make it burn rather than the weight itself. Connect with the chest.",
-        tempo: '3 second eccentrics + 1 count in the contraction.',
-        title: "Leg Press"
-    },
-    {
-        weight: 20,
-        repHi: 4,
-        repLow: 8,
-        notes: "Press hard. This should break you.",
-        tempo: '3 second eccentrics + 1 count in the contraction.',
-        title: "Bicep Curl"
-    }
-
-]
+import { PushWorkout } from './workout';
 
 
 export default function App() {
-    let exerciseIndex = 0
-    const [exercise, setExercise] = useState(Exercises[exerciseIndex])
-
-
     const [istimerShowing, setIsTimerShowing] = useState(false)
+    const [exerciseIndex, setExerciseIndex] = useState(0)
+    const [setIndex, setSetIndex] = useState(0)
 
     const nextExercise = () => {
-
         setIsTimerShowing((isShowing) => !isShowing)
-        setExercise(Exercises[exerciseIndex + 1])
-        exerciseIndex = exerciseIndex + 1
+        if (setIndex + 1 === PushWorkout[exerciseIndex].sets.length) {
+            setSetIndex(0)
+            setExerciseIndex((i) => i + 1)
+        } else {
+            setSetIndex((i) => i + 1)
+        }
     }
+
+    const currentWorkout = PushWorkout[exerciseIndex]
+    const currentSet = currentWorkout.sets[setIndex]
 
     const children = ({ remainingTime }: { remainingTime: number }) => {
         const minutes = Math.floor(remainingTime / 60)
@@ -46,18 +31,32 @@ export default function App() {
         const seconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
         return `${minutes}:${seconds}`
     }
+
     return <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar
+            barStyle="light-content"
+        />
         {istimerShowing ?
-            <View style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <CountdownCircleTimer
-                    isPlaying
-                    duration={5}
-                    colors={'#FFA500'}
-                    onComplete={nextExercise}
+            <>
+                <Text style={{ color: "white", fontSize: 32 }}  >Up Next:</Text>
+                <Text style={{ color: "white", fontSize: 100 }} adjustsFontSizeToFit={true} numberOfLines={1}>{currentWorkout.title}</Text>
+                <View style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <CountdownCircleTimer
+                        isPlaying
+                        duration={90}
+                        colors={'#FFA500'}
+                        onComplete={() => setIsTimerShowing(false)}
+                    >
+                        {({ remainingTime }: { remainingTime: number }) => <Text style={{ color: "white", fontSize: 50 }}>{children({ remainingTime })}</Text>}
+                    </CountdownCircleTimer>
+                </View>
+                <Pressable
+                    style={{ backgroundColor: "orange", flex: 0.1, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: '10%', borderRadius: 10 }}
+                    onPress={() => setIsTimerShowing(false)}
                 >
-                    {({ remainingTime }: { remainingTime: number }) => <Text style={{ color: "white", fontSize: 50 }}>{children({ remainingTime })}</Text>}
-                </CountdownCircleTimer>
-            </View>
-            : <ExerciseScreen exercise={exercise} next={nextExercise} />}
+                    <Text style={{ fontSize: 28, fontWeight: '600' }}>Next Set</Text>
+                </Pressable>
+            </>
+            : <ExerciseScreen title={currentWorkout.title} set={currentSet} setCount={`${setIndex + 1}/${currentWorkout.sets.length}`} next={nextExercise} />}
     </SafeAreaView>
 }
