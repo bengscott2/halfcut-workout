@@ -16,7 +16,7 @@ export default function App() {
       {currentWorkout !== null ?
         <ActiveExercise currentWorkout={currentWorkout} /> :
         <>
-          <Text style={{ fontSize: 46, padding: 20 }} className="text-white">Select a workout</Text>
+          <Text className="text-text-primary text-4xl p-3 py-10">Select a workout</Text>
           <ScrollView style={{ flex: 1, }}>
             {WorkoutsDB.map((workout) => {
               return (

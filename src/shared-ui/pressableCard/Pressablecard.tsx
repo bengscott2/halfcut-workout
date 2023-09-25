@@ -4,10 +4,10 @@ import { Pressable, Text } from "react-native";
 const PressableCard: React.FC<PressableCardProps> = ({ pressableKey, onPress, title }) => {
     return <Pressable
         key={pressableKey}
-        className="bg-white p-8 rounded-lg mx-10"
+        className="bg-pressable p-8 rounded-lg mx-10"
         onPress={onPress}
     >
-        <Text className="font-bold text-center text-xl">{title}</Text>
+        <Text className="font-bold text-center text-2xl text-text-primary">{title}</Text>
     </Pressable>
 }
 
