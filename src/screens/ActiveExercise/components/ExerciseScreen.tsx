@@ -1,5 +1,5 @@
 import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
-import { ExcerciseType } from "../workout";
+import { ExcerciseType } from "../../../workout";
 
 export const ExerciseScreen: React.FC<{
   title: string;

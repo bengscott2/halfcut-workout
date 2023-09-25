@@ -174,8 +174,9 @@ export const PushWorkout: WorkoutT[] = [
   },
 ];
 
-export const WorkoutsDB = [
+export const WorkoutsDB: { title: string, workout: WorkoutT[] }[] = [
   {
-    title: "Workout 1",
+    title: "Push Workout",
+    workout: PushWorkout
   },
 ];
