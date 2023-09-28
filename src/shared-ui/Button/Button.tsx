@@ -1,7 +1,7 @@
 import { Pressable, Text } from "react-native";
 
 
-const Button: React.FC<ButtonProps> = ({ pressableKey, onPress, title, variant = 'primary', classNames }) => {
+const Button: React.FC<ButtonProps> = ({ pressableKey = "", onPress, title, variant = 'primary', classNames }) => {
     return <Pressable
         key={pressableKey}
         className={`bg-pressable p-8 rounded-lg h-28 items-center justify-center ${variant === 'secondary' && 'bg-pressable-secondary'} ${classNames}`}
@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ pressableKey, onPress, title, variant =
 export default Button
 
 type ButtonProps = {
-    pressableKey: string | number;
+    pressableKey?: string | number;
     onPress: () => any;
     title: string
     variant?: 'primary' | 'secondary',

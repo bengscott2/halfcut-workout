@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { WorkoutT, WorkoutsDB } from "../../workout";
+import { WorkoutT } from "../../workout";
 import { TimerScreen } from "./components/TimerScreen";
 import { ExerciseScreen } from "./components/ExerciseScreen";
 

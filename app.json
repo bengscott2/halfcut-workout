@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "HalfcutFitness",
-    "slug": "HalfcutFitness",
+    "slug": "half-cut-fitness",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3a3a6df3-b781-4126-a941-4f88158b7321"
+      }
+    },
+    "owner": "bengscott2"
   }
 }
