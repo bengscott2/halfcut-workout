@@ -179,4 +179,48 @@ export const WorkoutsDB: { title: string, workout: WorkoutT[] }[] = [
     title: "Push Workout",
     workout: PushWorkout
   },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
+  {
+    title: "Push Workout",
+    workout: PushWorkout
+  },
 ];

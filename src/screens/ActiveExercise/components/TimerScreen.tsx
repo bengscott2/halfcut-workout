@@ -1,6 +1,7 @@
 import { Pressable, Text, View } from "react-native"
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer"
 import { WorkoutT } from "../../../workout";
+import PressableCard from "../../../shared-ui/pressableCard/Pressablecard";
 
 export const TimerScreen: React.FC<{
     setIsTimerShowing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,49 +18,30 @@ export const TimerScreen: React.FC<{
             return `${minutes}:${seconds}`;
         };
 
-        return <>
-            <Text style={{ color: "white", fontSize: 32 }}>Up Next:</Text>
-            <Text
-                style={{ color: "white", fontSize: 100 }}
-                adjustsFontSizeToFit={true}
-                numberOfLines={1}
-            >
-                {currentExercise.title}
-            </Text>
-            <View
-                style={{
-                    display: "flex",
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <CountdownCircleTimer
-                    isPlaying
-                    duration={90}
-                    colors={"#FFA500"}
-                    onComplete={() => setIsTimerShowing(false)}
+        return (
+            <View className="text-white flex-1 m-2">
+                <Text className="text-white text-xl">Up Next:</Text>
+                <Text
+                    className="text-white text-6xl mt-2"
+                    adjustsFontSizeToFit={true}
+                    numberOfLines={1}
                 >
-                    {({ remainingTime }: { remainingTime: number }) => (
-                        <Text style={{ color: "white", fontSize: 50 }}>
-                            {children({ remainingTime })}
-                        </Text>
-                    )}
-                </CountdownCircleTimer>
-            </View>
-            <Pressable
-                style={{
-                    backgroundColor: "orange",
-                    flex: 0.1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginHorizontal: "10%",
-                    borderRadius: 10,
-                }}
-                onPress={() => setIsTimerShowing(false)}
-            >
-                <Text style={{ fontSize: 28, fontWeight: "600" }}>Next Set</Text>
-            </Pressable>
-        </>
+                    {currentExercise.title}
+                </Text>
+                <View className="flex flex-1 items-center justify-center">
+                    <CountdownCircleTimer
+                        isPlaying
+                        duration={90}
+                        colors={"#FFA500"}
+                        onComplete={() => setIsTimerShowing(false)}
+                    >
+                        {({ remainingTime }: { remainingTime: number }) => (
+                            <Text className="text-white text-5xl">
+                                {children({ remainingTime })}
+                            </Text>
+                        )}
+                    </CountdownCircleTimer>
+                </View>
+                <PressableCard pressableKey={"next-set"} onPress={() => setIsTimerShowing(false)} title={"Next Set"} />
+            </View>)
     }

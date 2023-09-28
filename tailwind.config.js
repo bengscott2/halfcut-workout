@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       colors: {
         pressable: '#670CF8',
-        "text-primary": '#C0CCCC'
+        "pressable-secondary": '#9454FC',
+        "text-primary": '#C0CCCC',
+        "text-secondary": "#7E757E"
       }
     },
   },
