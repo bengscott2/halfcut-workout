@@ -1,7 +1,7 @@
 import { Pressable, Text, View } from "react-native"
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer"
 import { WorkoutT } from "../../../workout";
-import PressableCard from "../../../shared-ui/pressableCard/Pressablecard";
+import PressableCard from "../../../shared-ui/Button/Button";
 
 export const TimerScreen: React.FC<{
     setIsTimerShowing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,6 +42,6 @@ export const TimerScreen: React.FC<{
                         )}
                     </CountdownCircleTimer>
                 </View>
-                <PressableCard pressableKey={"next-set"} onPress={() => setIsTimerShowing(false)} title={"Next Set"} />
+                <PressableCard variant="secondary" pressableKey={"next-set"} onPress={() => setIsTimerShowing(false)} title={"Next Set"} />
             </View>)
     }

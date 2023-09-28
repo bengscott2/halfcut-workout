@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ActiveExercise } from "./screens/ActiveExercise/ActiveExercies";
 import React, { useState } from "react";
 import { WorkoutT, WorkoutsDB } from "./workout";
-import PressableCard from "./shared-ui/pressableCard/Pressablecard";
+import PressableCard from "./shared-ui/Button/Button";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function App() {
