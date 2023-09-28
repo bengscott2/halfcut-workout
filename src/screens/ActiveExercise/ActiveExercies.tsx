@@ -3,19 +3,23 @@ import { WorkoutT, WorkoutsDB } from "../../workout";
 import { TimerScreen } from "./components/TimerScreen";
 import { ExerciseScreen } from "./components/ExerciseScreen";
 
-export const ActiveExercise: React.FC<{ currentWorkout: WorkoutT[] }> = ({ currentWorkout }) => {
+export const ActiveExercise: React.FC<{
+    exercises: WorkoutT[];
+    setCurrentWorkout: React.Dispatch<React.SetStateAction<WorkoutT[] | null>>
+}> = ({ exercises, setCurrentWorkout }) => {
     const [istimerShowing, setIsTimerShowing] = useState(false);
     const [exerciseIndex, setExerciseIndex] = useState(0);
     const [setIndex, setSetIndex] = useState(0);
 
 
-    const currentExercise = currentWorkout[exerciseIndex];
+    const currentExercise = exercises[exerciseIndex];
     const currentSet = currentExercise.sets[setIndex];
 
 
     const nextExercise = () => {
+        if (exerciseIndex + 1 === exercises.length) setCurrentWorkout(null)
         setIsTimerShowing((isShowing) => !isShowing);
-        if (setIndex + 1 === currentWorkout[exerciseIndex].sets.length) {
+        if (setIndex + 1 === exercises[exerciseIndex].sets.length) {
             setSetIndex(0);
             setExerciseIndex((i) => i + 1);
         } else {

@@ -19,7 +19,7 @@ export default function App() {
         <Ionicons name="md-home" size={32} color="grey" className="flex" />
       </Pressable>
       {currentWorkout !== null ?
-        <ActiveExercise currentWorkout={currentWorkout} /> :
+        <ActiveExercise exercises={currentWorkout} setCurrentWorkout={setCurrentWorkout} /> :
         <>
           <Text className="text-text-primary text-4xl mb-3 p-4">It's Tuesday. What are we going to do today?</Text>
           <ScrollView className="flex-1">
